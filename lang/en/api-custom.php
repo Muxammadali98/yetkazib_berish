@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'user-created' => 'User created successfully',
+    'user-created-failed' => 'User not created',
+    'user-login-failed' => 'An error occurred while the user logged into the system',
+    'email-or-password-incorrect' => 'Username or password is incorrect',
+    'user-login-success' => 'User successfully logged into the system',
+    'ticket-status-not-changed' => 'Ticket status not changed',
+    'ticket-status-changed-to-progress' => 'Ticket status changed to "In progress"',
+    'method-not-allowed' => 'Method not allowed',
+    'ticket-status-changed-to-closed' => 'Ticket status changed to "Closed"',
+    'validation-failed' => 'The entered data is not correct',
+    'job-supplier' => 'Supplier',
+    'user-updated-successfully' => 'User updated successfully',
+    'user-updated-failed' => 'User not updated',
+    'user-password-updated-successfully' => 'User password updated successfully',
+    'user-password-updated-failed' => 'User password not updated',
+    'user-avatar-updated-successfully' => 'User avatar updated successfully',
+    'user-avatar-updated-failed' => 'User avatar not updated',
+    'new-order' => 'New order',
+    'return-order' => 'The order must be returned',
+    'verification-code' => 'Verification code: ',
+    'the-entered-code-is-incorrect' => 'The entered code is incorrect',
+    'code-received' => 'Code received',
+    'phone-number-is-not-verified' => 'Phone number is not verified',
+];

@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'user-created' => 'Пользователь успешно создан',
+    'user-created-failed' => 'Пользователь не создан',
+    'user-login-failed' => 'При входе пользователя в систему возникла ошибка',
+    'email-or-password-incorrect' => 'Имя пользователя или пароль неверный',
+    'user-login-success' => 'Пользователь успешно вошел в систему',
+    'ticket-status-not-changed' => 'Статус заявки не изменен',
+    'ticket-status-changed-to-progress' => 'Статус заявки изменен на "В работе"',
+    'method-not-allowed' => 'Метод не разрешен',
+    'ticket-status-changed-to-closed' => 'Статус заявки изменен на "Закрыта"',
+    'validation-failed' => 'Введенные данные неверны',
+    'job-supplier' => 'Служба доставки',
+    'user-updated-successfully' => 'Пользователь успешно обновлен',
+    'user-updated-failed' => 'Пользователь не обновлен',
+    'user-password-updated-successfully' => 'Пароль пользователя успешно обновлен',
+    'user-password-updated-failed' => 'Пароль пользователя не обновлен',
+    'user-avatar-updated-successfully' => 'Аватар пользователя успешно обновлен',
+    'user-avatar-updated-failed' => 'Аватар пользователя не обновлен',
+    'new-order' => 'Новый заказ',
+    'return-order' => 'Заказ должен быть возвращен',
+    'verification-code' => 'Проверочный код: ',
+    'the-entered-code-is-incorrect' => 'Введенный код неверный',
+    'code-received' => 'Код получен',
+    'phone-number-is-not-verified' => 'Номер телефона не подтвержден',
+];
