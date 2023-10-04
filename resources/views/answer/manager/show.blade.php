@@ -36,7 +36,8 @@
 @section('content')
     <div class="row">
         <div class="col-12 col-md-6 col-lg-12">
-            <div class="card">
+            @if(empty($comments))
+                <div class="card">
                 <div class="cart-body">
                     <div class="row">
                         <div class="col-md-6 d-flex justify-content-start">
@@ -80,10 +81,14 @@
                     </div>
                 </div>
             </div>
+            @endif
             <div class="card">
                 <div class="cart-body">
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
+
+                            <a href="#" class="btn btn-success accept-app m-3" data-toggle="modal" title="Qabul qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerAccepted', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-check"></i></a>
+                            <a href="#" class="btn btn-danger close-app m-3" data-toggle="modal" title="Bekor qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerCancel', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-times"></i></a>
                             <a href="{{ route('answer.pdf', $answers[0]->application_id) }}" class="btn btn-primary m-3" data-toggle="tooltip" title="PDF yuklash">PDF <i class="fas fa-download"></i></a>
                         </div>
                     </div>
@@ -102,7 +107,7 @@
                         </div>
                         <div id="aniimated-thumbnials" class="list-unstyled row clearfix">
                             @foreach($images_src as $image_src)
-                                <div class="col-md-6">
+                                <div class="col-md-3 ">
                                     <a href="{{ $image_src }}">
                                         <img class="img-responsive thumbnail " src="{{ $image_src }}" alt="" style="width: 320px; height: 300px; object-fit: contain">
                                     </a>
@@ -144,6 +149,14 @@
                             @endforeach
                         </table>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-end">
+
+                            <a href="#" class="btn btn-success accept-app m-3" data-toggle="modal" title="Qabul qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerAccepted', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-check"></i></a>
+                            <a href="#" class="btn btn-danger close-app m-3" data-toggle="modal" title="Bekor qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerCancel', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-times"></i></a>
+                            <a href="{{ route('answer.pdf', $answers[0]->application_id) }}" class="btn btn-primary m-3" data-toggle="tooltip" title="PDF yuklash">PDF <i class="fas fa-download"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,4 +165,81 @@
 @section('js')
     <script src="/assets/bundles/lightgallery/dist/js/lightgallery-all.js"></script>
     <script src="/assets/js/page/light-gallery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.accept-app').click(function () {
+                let url = $(this).data('url');
+                let name = $(this).data('name');
+                let modal = $('#exampleModalCenter');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.find('.modal-title').text(name);
+                            modal.find('.btn-primary').addClass('accept-app-btn').attr('data-url', url);
+                            modal.find('.modal-body').html(response.content);
+                        }
+                    },
+                });
+            });
+
+            $(document).on('click', '.accept-app-btn', function () {
+                let url = $(this).data('url');
+                let modal = $('#exampleModalCenter');
+                let comment = modal.find('#comment').val();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        comment: comment,
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.modal('hide');
+                            location.reload();
+                        }
+                    },
+                });
+            });
+
+            $('.close-app').click(function () {
+                let url = $(this).data('url');
+                let name = $(this).data('name');
+                let modal = $('#exampleModalCenter');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.find('.modal-title').text(name);
+                            modal.find('.btn-primary').addClass('close-app-btn').attr('data-url', url);
+                            modal.find('.modal-body').html(response.content);
+                        }
+                    },
+                });
+            });
+
+            $(document).on('click', '.close-app-btn', function () {
+                let url = $(this).data('url');
+                let modal = $('#exampleModalCenter');
+                let comment = modal.find('#comment').val();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        comment: comment,
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.modal('hide');
+                            location.reload();
+                        }
+                    },
+                });
+            });
+        });
+    </script>
 @endsection
