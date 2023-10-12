@@ -89,6 +89,27 @@ class AnswerController extends Controller
             }
         }
     }
+    public function managerUpdate($application_id)
+    {
+        if (request()->ajax()) {
+            if (request()->isMethod('GET')) {
+                $job = 'Mahsulot nomi va artikul';
+                $view = view('answer._form',compact('job'))->render();
+                return response()->json([
+                    'status' => 'success',
+                    'content' => $view
+                ]);
+            }
+
+            if (request()->isMethod('POST')) {
+                $this->answerService->managerUpdateJob($application_id,request()->get('comment'));
+                return response()->json([
+                    'status' => 'success',
+                    'content' => 'success'
+                ]);
+            }
+        }
+    }
 
     public function managerCancel($application_id)
     {

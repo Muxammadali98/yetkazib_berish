@@ -13,6 +13,11 @@ class AnswerService implements \App\Interfaces\Services\AnswerServiceInterface
         Answer::where('application_id', $application_id)->update(['status' => Answer::STATUS_MANAGER_REJECTED]);
         LogService::setLog($application_id, auth()->user()->id, Log::STATUS_REJECTED);
     }
+    public function managerUpdateJob($application_id, $text)
+    {
+        Answer::where('application_id', $application_id)->where('question_id',1)->update(['text' => $text]);
+
+    }
     public function contractCancel($application_id)
     {
         Answer::where('application_id', $application_id)->update(['status' => Answer::STATUS_CONTRACT_REJECTED]);

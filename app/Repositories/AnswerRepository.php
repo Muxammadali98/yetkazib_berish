@@ -63,6 +63,7 @@ class AnswerRepository implements \App\Interfaces\Repositories\AnswerRepositoryI
         if ($image_hash) {
             foreach ($image_hash as $item) {
                 $file_path = $telegram->getFile($item);
+
                 if ($file_path) {
                     $image_src[] = $telegram_url . '/' . $file_path->result->file_path;
                 }

@@ -18,7 +18,7 @@
                 </div>
                 <footer class="main-footer">
                     @include('layouts.footer')
-                <footer>
+                </footer>
             </div>
         </div>
         <!-- General JS Scripts -->

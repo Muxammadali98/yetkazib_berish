@@ -5,6 +5,7 @@ namespace App\Interfaces\Services;
 interface AnswerServiceInterface
 {
     public function managerCancel($application_id);
+
     public function contractCancel($application_id);
     public function managerAccepted($application_id);
     public function contractAccepted($application_id);

@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
         Route::get('answer/manager/index', [\App\Http\Controllers\AnswerController::class, 'managerIndex'])->name('answer.managerIndex');
         Route::get('answer/manager/{application_id}/accepted', [\App\Http\Controllers\AnswerController::class, 'managerAccepted'])->name('answer.managerAccepted');
         Route::post('answer/manager/{application_id}/accepted', [\App\Http\Controllers\AnswerController::class, 'managerAccepted']);
+        Route::get('answer/manager/{application_id}/update', [\App\Http\Controllers\AnswerController::class, 'managerUpdate'])->name('answer.managerUpdate');
+        Route::post('answer/manager/{application_id}/update', [\App\Http\Controllers\AnswerController::class, 'managerUpdate']);
         Route::get('answer/manager/{application_id}/cancel', [\App\Http\Controllers\AnswerController::class, 'managerCancel'])->name('answer.managerCancel');
         Route::post('answer/manager/{application_id}/cancel', [\App\Http\Controllers\AnswerController::class, 'managerCancel']);
         Route::get('answer/manager/accepted/index', [\App\Http\Controllers\AnswerController::class, 'managerAcceptedIndex'])->name('answer.managerAcceptedIndex');
