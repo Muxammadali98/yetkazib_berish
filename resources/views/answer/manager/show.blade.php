@@ -36,7 +36,8 @@
 @section('content')
     <div class="row">
         <div class="col-12 col-md-6 col-lg-12">
-            @if(empty($comments))
+
+            @if(count($comments) > 0)
                 <div class="card">
                 <div class="cart-body">
                     <div class="row">
@@ -87,7 +88,7 @@
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
 
-                            <a href="#" class="btn btn-primary accept-app m-3" data-toggle="modal" title="O'zgartirish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerUpdate', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="btn btn-primary update-app m-3" data-toggle="modal" title="O'zgartirish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerUpdate', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-pencil-alt"></i></a>
                             <a href="#" class="btn btn-success accept-app m-3" data-toggle="modal" title="Qabul qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerAccepted', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-check"></i></a>
                             <a href="#" class="btn btn-danger close-app m-3" data-toggle="modal" title="Bekor qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerCancel', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-times"></i></a>
                             <a href="{{ route('answer.pdf', $answers[0]->application_id) }}" class="btn btn-primary m-3" data-toggle="tooltip" title="PDF yuklash">PDF <i class="fas fa-download"></i></a>
@@ -152,7 +153,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <a href="#" class="btn btn-primary accept-app m-3" data-toggle="modal" title="O'zgartirish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerUpdate', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="#" class="btn btn-primary update-app m-3" data-toggle="modal" title="O'zgartirish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerUpdate', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-pencil-alt"></i></a>
                             <a href="#" class="btn btn-success accept-app m-3" data-toggle="modal" title="Qabul qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerAccepted', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-check"></i></a>
                             <a href="#" class="btn btn-danger close-app m-3" data-toggle="modal" title="Bekor qilish" data-id="{{ $answers[0]->application_id }}" data-url="{{ route('answer.managerCancel', $answers[0]->application_id) }}" data-name="{{ $answers[0]->client->full_name }}" data-target="#exampleModalCenter"><i class="fas fa-times"></i></a>
                             <a href="{{ route('answer.pdf', $answers[0]->application_id) }}" class="btn btn-primary m-3" data-toggle="tooltip" title="PDF yuklash">PDF <i class="fas fa-download"></i></a>
@@ -169,6 +170,42 @@
     <script>
         $(document).ready(function () {
             $('.accept-app').click(function () {
+                let url = $(this).data('url');
+                let name = $(this).data('name');
+                let modal = $('#exampleModalCenter');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.find('.modal-title').text(name);
+                            modal.find('.btn-primary').addClass('accept-app-btn').attr('data-url', url);
+                            modal.find('.modal-body').html(response.content);
+                        }
+                    },
+                });
+            });
+
+            $(document).on('click', '.accept-app-btn', function () {
+                let url = $(this).data('url');
+                let modal = $('#exampleModalCenter');
+                let comment = modal.find('#comment').val();
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        comment: comment,
+                    },
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            modal.modal('hide');
+                            location.reload();
+                        }
+                    },
+                });
+            });
+            $('.update-app').click(function () {
                 let url = $(this).data('url');
                 let name = $(this).data('name');
                 let modal = $('#exampleModalCenter');
