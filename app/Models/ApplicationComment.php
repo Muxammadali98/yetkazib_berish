@@ -15,7 +15,8 @@ class ApplicationComment extends Model
 
     public function getStatus(): string
     {
-        return $this->status === self::STATUS_ACCEPTED
+        // false berib yubordi hostingda localda tog'ri ishadi , typedan boldi
+        return $this->status == self::STATUS_ACCEPTED
             ? '<span class="badge badge-success">Qabul qilindi</span>'
             : '<span class="badge badge-danger">Bekor qilindi</span>';
     }
