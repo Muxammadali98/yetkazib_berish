@@ -40,7 +40,7 @@ class TicketRepository implements TicketRepositoryInterface
                 $query->select('id', 'ticket_id', 'product_name', 'article', 'model', 'quantity');
             }])
             ->with(['supplierAction' => function ($query) {
-                $query->select('id', 'ticket_id', 'comment', 'lat', 'lng')
+                $query->select('id', 'ticket_id', 'comment', 'lat', 'lng','created_at')
                     ->with(['supplierFiles:id,supplier_action_id,file']);
             }])
             ->first();
