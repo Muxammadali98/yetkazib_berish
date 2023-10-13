@@ -152,6 +152,9 @@
                                     <th>
                                         Manzil
                                     </th>
+                                    <th>
+                                        Yetkazib berilgan sana
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -161,6 +164,9 @@
                                     </td>
                                     <td>
                                         {{ \App\Services\GoogleMapService::getAddress($model->supplierAction->lat, $model->supplierAction->lng) }}
+                                    </td>
+                                    <td>
+                                        {{ $model->supplierAction->created_at }}
                                     </td>
                                 </tr>
                             </tbody>
