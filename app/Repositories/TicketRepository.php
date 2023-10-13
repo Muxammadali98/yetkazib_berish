@@ -69,7 +69,7 @@ class TicketRepository implements TicketRepositoryInterface
         return Ticket::where('status', Ticket::STATUS_CLOSED)
             ->with(['user' => function ($query) {
                 $query->select('id', 'name');
-            }])
+            }])->orderBy('created_at','DESC')
             ->paginate(Ticket::PAGE_SIZE);
     }
 }
